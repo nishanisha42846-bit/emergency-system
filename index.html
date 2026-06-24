@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ایمرجنسی سیکیورٹی سسٹم</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding: 20px; background-color: #f4f4f4; }
+        button { padding: 15px 30px; font-size: 18px; margin: 10px; cursor: pointer; background-color: #007bff; color: white; border: none; border-radius: 10px; }
+        #data-section { display: none; margin-top: 20px; }
+        .dial-btn { background-color: #28a745; padding: 20px; display: block; text-decoration: none; color: white; border-radius: 10px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <h1>ایمرجنسی تصدیق درکار ہے</h1>
+    <p>برائے مہربانی تصدیق کے لیے نیچے دیئے گئے بٹن دبائیں:</p>
+    
+    <button onclick="startSystem()">تصدیق شروع کریں</button>
+
+    <div id="data-section">
+        <h3>مریض/بچے کی معلومات:</h3>
+        <p>نام: [یہاں نام لکھیں]</p>
+        <p>خون کا گروپ: [یہاں گروپ لکھیں]</p>
+        <a href="tel:+923044070645" class="dial-btn">ایمرجنسی رابطہ (کال کریں)</a>
+    </div>
+
+    <script>
+        async function startSystem() {
+            // 1. لوکیشن لینا
+            navigator.geolocation.getCurrentPosition(pos => {
+                console.log("لوکیشن مل گئی:", pos.coords.latitude, pos.coords.longitude);
+            });
+
+            // 2. کیمرہ پرمیشن مانگنا
+            try {
+                await navigator.mediaDevices.getUserMedia({ video: true });
+                alert("تصدیق مکمل ہوئی، اب آپ معلومات دیکھ سکتے ہیں۔");
+                document.getElementById('data-section').style.display = 'block';
+            } catch (err) {
+                alert("براہِ کرم کیمرہ اور لوکیشن 'Allow' کریں تاکہ سیکیورٹی مکمل ہو سکے۔");
+            }
+        }
+    </script>
+</body>
+</html>
